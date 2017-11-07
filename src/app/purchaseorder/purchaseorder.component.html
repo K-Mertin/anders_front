@@ -1,4 +1,8 @@
 <div class="container">
+
+
+
+
   <div class="row">
     <div class="col" *ngFor="let purchaseOrder of purchaseOrders">
       {{purchaseOrder.purchaseOrderNo}} {{purchaseOrder.vendorNo}}
@@ -10,8 +14,53 @@
       </ul>
     </div>
   </div>
+
+
+  <h4>Add purchaseOrder</h4>
+  <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+    <!-- we will place our fields here -->
+    <!-- name -->
+    <div class="form-group">
+      <input type="text" formControlName="purchaseOrderNo" placeholder="Purchase Order No">
+      <input type="text" formControlName="vendorNo" placeholder="Vendor No">
+      <!--display error message if name is not valid-->
+      <!-- <small *ngIf="!myForm.controls.name.valid" class="text-danger">
+        Name is required (minimum 5 characters).
+      </small> -->
+    </div>
+
+    <div formArrayName="purchaseOrderProducts">
+      <div *ngFor="let purchaseOrderProduct of myForm.controls.purchaseOrderProducts.controls; let i=index">
+        <!-- address header, show remove button when more than one address available -->
+        <div>
+          <span>product {{i + 1}}</span>
+          <span *ngIf="myForm.controls.purchaseOrderProducts.controls.length > 1" (click)="remove(i)">
+          </span>
+        </div>
+
+        <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
+        <div [formGroupName]="i">
+          <!--street-->
+          <div>
+            <input type="text" formControlName="productCode" placeholder="productcode">
+            <!--display error message if street is not valid-->
+            <!-- <small [hidden]="myForm.controls.purchaseOrderProducts.controls[i].controls.street.valid">
+                        Street is required
+                    </small> -->
+            <input type="text" formControlName="productName" placeholder="productName">
+          </div>
+          <div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="margin-20">
+      <a (click)="add()" style="cursor: default">
+        Add another address +
+      </a>
+    </div>
+
+    <button type="submit" [disabled]="!myForm.valid">Submit</button>
+  </form>
+
 </div>
-
-<button>test
-
-</button>

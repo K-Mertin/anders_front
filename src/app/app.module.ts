@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProductService } from './service/product.service';
 import { PurchaseorderService } from './service/purchaseorder.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { PurchaseorderService } from './service/purchaseorder.service';
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(APP_ROUTES),
+    ReactiveFormsModule
   ],
   providers: [ProductService, PurchaseorderService],
   bootstrap: [AppComponent]
