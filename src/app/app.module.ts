@@ -1,33 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router'
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ProductComponent } from './product/product.component';
 import { VendorComponent } from './vendor/vendor.component';
-import { PurchaseComponent } from './purchase/purchase.component';
+import { PurchaseorderComponent } from './purchaseorder/purchaseorder.component';
 import { HeaderComponent } from './shared';
 import { HomeComponent } from './home/home.component';
-
-const rootRoute: ModuleWithProviders = RouterModule.forRoot([
-  { path: 'product', component: ProductComponent },
-  { path: 'home', component: HomeComponent },
-  { path: '', redirectTo: 'home', pathMatch:'full'},
-], { useHash: true });
+import { APP_ROUTES } from './route';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ProductService } from './service/product.service';
+import { PurchaseorderService } from './service/purchaseorder.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductComponent,
     VendorComponent,
-    PurchaseComponent,
+    PurchaseorderComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
+    BsDropdownModule.forRoot(),
     BrowserModule,
-    rootRoute
+    BrowserAnimationsModule,
+    RouterModule.forRoot(APP_ROUTES),
   ],
-  providers: [],
+  providers: [ProductService, PurchaseorderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

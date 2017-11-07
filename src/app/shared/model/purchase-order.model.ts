@@ -1,6 +1,7 @@
 export class PurchaseOrder {
-    purchaseNo: string;
-    purchaseDate: Date;
-    arriveDate:
-
+    purchaseOrderNo: string;
+    purchaseOrderDate: Date;
+    arriveDate: Date;
+    paymentDate: Date;
+    paymentAmt: number;
 }
