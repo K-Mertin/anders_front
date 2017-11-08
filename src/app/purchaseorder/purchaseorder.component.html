@@ -17,16 +17,27 @@
 
 
   <h4>Add purchaseOrder</h4>
-  <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+  <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm.value)">
     <!-- we will place our fields here -->
     <!-- name -->
     <div class="form-group">
-      <input type="text" formControlName="purchaseOrderNo" placeholder="Purchase Order No">
+      <input id="purchaseOrderNo" type="text" formControlName="purchaseOrderNo" placeholder="Purchase Order No">
       <input type="text" formControlName="vendorNo" placeholder="Vendor No">
       <!--display error message if name is not valid-->
-      <!-- <small *ngIf="!myForm.controls.name.valid" class="text-danger">
-        Name is required (minimum 5 characters).
-      </small> -->
+      <div>
+        <div *ngIf="(myForm.controls.purchaseOrderNo.invalid && (myForm.controls.purchaseOrderNo.dirty || myForm.controls.purchaseOrderNo.touched))"
+          class="alert alert-danger">
+          <div *ngIf="myForm.controls.purchaseOrderNo.errors.required">
+            purchaseOrderNo is required.
+          </div>
+        </div>
+      </div>
+      <div *ngIf="(myForm.controls.vendorNo.invalid && (myForm.controls.vendorNo.dirty || myForm.controls.vendorNo.touched))" class="alert alert-danger">
+        <div *ngIf="myForm.controls.vendorNo.errors.required">
+          vendorNo is required.
+        </div>
+      </div>
+
     </div>
 
     <div formArrayName="purchaseOrderProducts">
@@ -34,23 +45,20 @@
         <!-- address header, show remove button when more than one address available -->
         <div>
           <span>product {{i + 1}}</span>
-          <span *ngIf="myForm.controls.purchaseOrderProducts.controls.length > 1" (click)="remove(i)">
+          <span class="fa fa-times  pull-right" *ngIf="myForm.controls.purchaseOrderProducts.controls.length > 1" (click)="remove(i)">
           </span>
         </div>
 
         <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
         <div [formGroupName]="i">
           <!--street-->
-          <div>
-            <input type="text" formControlName="productCode" placeholder="productcode">
-            <!--display error message if street is not valid-->
-            <!-- <small [hidden]="myForm.controls.purchaseOrderProducts.controls[i].controls.street.valid">
-                        Street is required
-                    </small> -->
+          <span formGroupName="product">
+            <input type="text" formControlName="productCode" placeholder="productCode">
             <input type="text" formControlName="productName" placeholder="productName">
-          </div>
-          <div>
-          </div>
+            <input type="text" formControlName="productDesc" placeholder="ProductDesc">
+          </span>
+          <input type="numer" formControlName="unitCost" placeholder="unitCost">
+          <input type="numer" formControlName="volumn" placeholder="volumn">
         </div>
       </div>
     </div>

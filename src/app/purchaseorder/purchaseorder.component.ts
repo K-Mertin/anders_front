@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PurchaseOrder, PurchaseOrderProduct } from '../models/purchaseorder.model';
+import { Product } from '../models/product.model';
 import { PurchaseorderService } from '../service/purchaseorder.service';
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 
@@ -22,24 +23,26 @@ export class PurchaseorderComponent implements OnInit {
 
   ngOnInit() {
     this.purchaseOrders = this.service.getAllOrders();
-
     this.myForm = this._fb.group({
-      purchaseOrderNo: [''],
-      vendorNo: [''],
+      purchaseOrderNo: ['', Validators.required],
+      vendorNo: ['', Validators.required],
       purchaseOrderProducts: this._fb.array([
         this.initPurchaseOrderProduct(),
       ])
     });
+    console.log(this.myForm);
   }
 
   initPurchaseOrderProduct() {
-    // initialize our address
+    // initialize our addres
     return this._fb.group({
-      productCode: [''],
-      productName: [''],
-      productDesc: [''],
-      unitCost: [0],
-      volumn: [0]
+      product: this._fb.group({
+        productCode: ['', Validators.required],
+        productName: ['', Validators.required],
+        productDesc: ['', Validators.required]
+      }),
+      unitCost: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]+')])],
+      volumn: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]+')])]
     });
   }
 
@@ -57,7 +60,6 @@ export class PurchaseorderComponent implements OnInit {
 
 
   save(model: PurchaseOrder) {
-    console.log(model);
   }
 
 }
