@@ -1,4 +1,6 @@
 
+
+
 <div class="container">
   <div class="row">
     <div class="col" *ngFor="let product of products">
@@ -8,3 +10,12 @@
     </div>
   </div>
 </div>
+<button (click)="buttonEnterEvent()">TEST</button>
+
+<div class="autocomplete">
+  <input class="input" type="search" id="search" autocomplete="off" #input>
+  <ul id="suggest-list" class="suggest"  #selected>
+    <li *ngFor="let i of list" (click)="suggestSelected(i)" >{{i}}</li>
+  </ul>
+</div>
+

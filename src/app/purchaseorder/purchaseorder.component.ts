@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PurchaseOrder, PurchaseOrderProduct } from '../models/purchaseorder.model';
 import { Product } from '../models/product.model';
 import { PurchaseorderService } from '../service/purchaseorder.service';
-import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { ProductService } from '../service/product.service';
+import { Validators, FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-purchaseorder',
@@ -11,18 +12,21 @@ import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 })
 export class PurchaseorderComponent implements OnInit {
 
+  @ViewChild('f') form: any;
   purchaseOrders: PurchaseOrder[];
-  tmpPurchaseOrder: PurchaseOrder;
+  tmpPurchaseOrder: PurchaseOrder = new PurchaseOrder();
   tmpPurchaseOrderProducts: PurchaseOrderProduct[];
 
   public myForm: FormGroup; // our form model
 
 
   constructor(private service: PurchaseorderService,
+    private productService: ProductService,
     private _fb: FormBuilder) { }
 
   ngOnInit() {
-    this.purchaseOrders = this.service.getAllOrders();
+    this.service.getAllOrders().subscribe(purchaseorders => this.purchaseOrders = purchaseorders);
+    // this.service.getAllOrders().then( purchaseorders => this.purchaseOrders = purchaseorders);
     this.myForm = this._fb.group({
       purchaseOrderNo: ['', Validators.required],
       vendorNo: ['', Validators.required],
@@ -60,6 +64,13 @@ export class PurchaseorderComponent implements OnInit {
 
 
   save(model: PurchaseOrder) {
+    this.tmpPurchaseOrder = model;
+    this.purchaseOrders.push(model);
+    console.log(model);
+  }
+
+  logForm(value: any) {
+    console.log(value);
   }
 
 }

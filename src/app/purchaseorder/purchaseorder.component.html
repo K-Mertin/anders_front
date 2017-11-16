@@ -1,8 +1,5 @@
 <div class="container">
 
-
-
-
   <div class="row">
     <div class="col" *ngFor="let purchaseOrder of purchaseOrders">
       {{purchaseOrder.purchaseOrderNo}} {{purchaseOrder.vendorNo}}
@@ -53,13 +50,62 @@
         <div [formGroupName]="i">
           <!--street-->
           <span formGroupName="product">
-            <input type="text" formControlName="productCode" placeholder="productCode">
+            <input type="search" formControlName="productCode" placeholder="productCode">
             <input type="text" formControlName="productName" placeholder="productName">
             <input type="text" formControlName="productDesc" placeholder="ProductDesc">
           </span>
           <input type="numer" formControlName="unitCost" placeholder="unitCost">
           <input type="numer" formControlName="volumn" placeholder="volumn">
         </div>
+
+
+        <div *ngIf="(myForm.controls.purchaseOrderProducts.controls[i].controls.product.controls.productCode.invalid
+         && (myForm.controls.purchaseOrderProducts.controls[i].controls.product.controls.productCode.dirty 
+         || myForm.controls.purchaseOrderProducts.controls[i].controls.product.controls.productCode.touched))" class="alert alert-danger">
+          <div *ngIf="myForm.controls.purchaseOrderProducts.controls[i].controls.product.controls.productCode.errors.required">
+            productCode is required.
+          </div>
+        </div>
+
+        <div *ngIf="(myForm.controls.purchaseOrderProducts.controls[i].controls.product.controls.productName.invalid
+        && (myForm.controls.purchaseOrderProducts.controls[i].controls.product.controls.productName.dirty 
+        || myForm.controls.purchaseOrderProducts.controls[i].controls.product.controls.productName.touched))" class="alert alert-danger">
+          <div *ngIf="myForm.controls.purchaseOrderProducts.controls[i].controls.product.controls.productName.errors.required">
+            productName is required.
+          </div>
+        </div>
+
+        <div *ngIf="(myForm.controls.purchaseOrderProducts.controls[i].controls.product.controls.productDesc.invalid
+       && (myForm.controls.purchaseOrderProducts.controls[i].controls.product.controls.productDesc.dirty 
+       || myForm.controls.purchaseOrderProducts.controls[i].controls.product.controls.productDesc.touched))" class="alert alert-danger">
+          <div *ngIf="myForm.controls.purchaseOrderProducts.controls[i].controls.product.controls.productDesc.errors.required">
+            productDesc is required.
+          </div>
+        </div>
+
+        <div *ngIf="(myForm.controls.purchaseOrderProducts.controls[i].controls.unitCost.invalid 
+        && (myForm.controls.purchaseOrderProducts.controls[i].controls.unitCost.dirty || myForm.controls.purchaseOrderProducts.controls[i].controls.unitCost.touched))"
+          class="alert alert-danger">
+          <div *ngIf="myForm.controls.purchaseOrderProducts.controls[i].controls.unitCost.errors.required">
+            unitCost is required.
+          </div>
+          <div *ngIf="myForm.controls.purchaseOrderProducts.controls[i].controls.unitCost.errors.pattern">
+            unitCost should be a number.
+          </div>
+        </div>
+
+        <div *ngIf="(myForm.controls.purchaseOrderProducts.controls[i].controls.volumn.invalid 
+        && (myForm.controls.purchaseOrderProducts.controls[i].controls.volumn.dirty || myForm.controls.purchaseOrderProducts.controls[i].controls.volumn.touched))"
+          class="alert alert-danger">
+          <div *ngIf="myForm.controls.purchaseOrderProducts.controls[i].controls.volumn.errors.required">
+            volumn is required.
+          </div>
+          <div *ngIf="myForm.controls.purchaseOrderProducts.controls[i].controls.volumn.errors.pattern">
+            volumn should be a number.
+          </div>
+        </div>
+
+
       </div>
     </div>
     <div class="margin-20">
@@ -69,6 +115,41 @@
     </div>
 
     <button type="submit" [disabled]="!myForm.valid">Submit</button>
+    <pre>{{myForm.value|json}}</pre>
   </form>
+
+
+  <form novalidate (ngSubmit)="logForm(f.value)" #f="ngForm">
+    <label>purchaseOrderNo:</label>
+    <input type="text" name="purchaseOrderNo" ngModel>
+
+    <label>venderNo:</label>
+    <input type="text" name="venderNo" ngModel>
+
+    <fieldset ngModelGroup="purchaseOrderProducts">
+      <fieldset ngModelGroup="product">
+        <label>proudctCode:</label>
+        <input type="text" name="proudctCode" ngModel>
+
+        <label>productName:</label>
+        <input type="text" name="productName" ngModel>
+
+        <label>productDesc:</label>
+        <input type="text" name="productDesc" ngModel>
+      </fieldset>
+
+      <label>unitCost:</label>
+      <input type="numeric" name="unitCost" ngModel>
+
+      <label>volumn:</label>
+      <input type="numeric" name="volumn" ngModel>
+    </fieldset>
+
+
+    <button type="submit">Submit</button>
+    <pre>{{f.value|json}}</pre>
+  </form>
+
+
 
 </div>

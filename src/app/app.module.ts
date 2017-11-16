@@ -28,7 +28,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(APP_ROUTES),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [ProductService, PurchaseorderService],
   bootstrap: [AppComponent]

@@ -26,4 +26,15 @@ export const PRODUCTS: Product[] = [
         productName: 'ProductD',
         productDesc: 'ProductD description'
     }
+    ,
+    {
+        productCode: 'A111',
+        productName: 'PA001',
+        productDesc: 'ProductD description'
+    },
+    {
+        productCode: 'A121',
+        productName: 'PA101',
+        productDesc: 'ProductD description'
+    }
 ];
