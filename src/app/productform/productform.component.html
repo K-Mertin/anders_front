@@ -1,0 +1,15 @@
+<form novalidate (ngSubmit)="save(f.value)" #f="ngForm">
+    <div class="form-group">
+      <label>Product Code:</label>
+      <input clase="form-control" type="text" name="productCode" ngModel>
+    </div>
+    <div class="form-group">
+      <label>Product Name:</label>
+      <input clase="form-control" type="text" name="productName" ngModel>
+    </div>
+    <div class="form-group">
+      <label>Product Description:</label>
+      <input clase="form-control" type="text" name="productDesc" ngModel>
+    </div>
+  <pre>{{f.value|json}}</pre>
+</form>

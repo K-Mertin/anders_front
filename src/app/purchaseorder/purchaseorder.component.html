@@ -115,16 +115,35 @@
     </div>
 
     <button type="submit" [disabled]="!myForm.valid">Submit</button>
+    <label>myForm</label>
     <pre>{{myForm.value|json}}</pre>
   </form>
 
 
   <form novalidate (ngSubmit)="logForm(f.value)" #f="ngForm">
     <label>purchaseOrderNo:</label>
-    <input type="text" name="purchaseOrderNo" ngModel>
+    <input type="text" name="purchaseOrderNo" [(ngModel)]="tmpPurchaseOrder.purchaseOrderNo ">
 
     <label>venderNo:</label>
     <input type="text" name="venderNo" ngModel>
+
+
+
+    <fieldset #group="ngModelGroup" ngModelGroup="product-{{index}}" *ngFor="let product of tmpPurchaseOrderProducts; let index = index">
+      <p>product {{ index + 1}}</p>
+      <fieldset ngModelGroup="product">
+      <div>
+        <label>productCode:</label>
+        <input type="text" name="productCode" [(ngModel)]="product.product.productCode" required>
+
+      </div>
+      </fieldset>
+      <p *ngIf="group.invalid">product # {{index}} is invalid.</p>
+
+    </fieldset>
+
+    <button (click)="removeLastProduct()">Remove last</button>
+    <button (click)="addProduct()">Add Another</button>
 
     <fieldset ngModelGroup="purchaseOrderProducts">
       <fieldset ngModelGroup="product">
@@ -147,7 +166,12 @@
 
 
     <button type="submit">Submit</button>
+    <label>f.value</label>
+    
     <pre>{{f.value|json}}</pre>
+
+    <pre>{{tmpPurchaseOrder|json}}</pre>
+    <pre>{{tmpPurchaseOrderProducts|json}}</pre>
   </form>
 
 

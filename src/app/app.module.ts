@@ -13,6 +13,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProductService } from './service/product.service';
 import { PurchaseorderService } from './service/purchaseorder.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductformComponent } from './productform/productform.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PurchaseorderComponent,
     HeaderComponent,
     HomeComponent,
+    ProductformComponent,
   ],
   imports: [
     BsDropdownModule.forRoot(),

@@ -17,7 +17,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
   @ViewChild('input') input: ElementRef;
   @ViewChild('selected') selected: ElementRef;
 
-  list: string[];
+  list: string[] = [];
   products: Product[];
   key: string;
   subscription: Subscription[];

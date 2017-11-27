@@ -15,7 +15,7 @@ export class PurchaseorderComponent implements OnInit {
   @ViewChild('f') form: any;
   purchaseOrders: PurchaseOrder[];
   tmpPurchaseOrder: PurchaseOrder = new PurchaseOrder();
-  tmpPurchaseOrderProducts: PurchaseOrderProduct[];
+  tmpPurchaseOrderProducts: PurchaseOrderProduct[] = [];
 
   public myForm: FormGroup; // our form model
 
@@ -25,6 +25,14 @@ export class PurchaseorderComponent implements OnInit {
     private _fb: FormBuilder) { }
 
   ngOnInit() {
+    this.addProduct();
+    // this.productCodeField = new FormControl();
+    // this.productCodeField.valueChanges
+    //   .filter(term => term.length > 0)
+    //   .subscribe(
+    //   term => this.productService.getAutoComplete(term).subscribe((products) => this.searches = products.map(p => p.productName))
+    //   );
+
     this.service.getAllOrders().subscribe(purchaseorders => this.purchaseOrders = purchaseorders);
     // this.service.getAllOrders().then( purchaseorders => this.purchaseOrders = purchaseorders);
     this.myForm = this._fb.group({
@@ -71,6 +79,26 @@ export class PurchaseorderComponent implements OnInit {
 
   logForm(value: any) {
     console.log(value);
+  }
+
+
+  addProduct(): void {
+    this.tmpPurchaseOrderProducts.push({
+      product: {
+        productCode: null,
+        productName: null,
+        productDesc: null
+      },
+      unitCost: null,
+      volumn: null
+    });
+  }
+
+  removeLastProduct(): void {
+    if (this.tmpPurchaseOrderProducts.length > 1) {
+      this.tmpPurchaseOrderProducts.pop();
+    }
+
   }
 
 }

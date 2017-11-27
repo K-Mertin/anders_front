@@ -19,4 +19,9 @@ export class ProductService {
   getAutoComplete(key: string): Observable<Product[]> {
     return Observable.of(PRODUCTS).map(products => products.filter(product => product.productName.toLowerCase().startsWith(key.toLowerCase())));
   }
+
+  post(product: Product) {
+    PRODUCTS.push(product);
+  }
+
 }
